@@ -4,6 +4,24 @@
 #include<iostream>
 using namespace std;
 
+/*
+   AUGMENTED ORDER_STATISTIC_TREE
+
+   Operations:
+      -insert a key with a given value - O(log N)
+	  -remove a key - O(log N)
+	  -check if a key exists or not - O(log N)
+	  -count how many keys lower than a given value exist in the order statistic tree - O(logN)
+	  -find the key, which if we would put all the keys in a sorted vector, it is the kth - O(logN)
+	  -increase all keys, greater or equal with our key, with a value v, which must be >=0 - O(logN)
+	  -find the closest key, which is lower or equal than a given value k - O(logN)
+	  -print the keys in ascending order - O(N)
+	  -print the size of the tree -O(1)
+
+    
+   The tree is implemented using AVL-trees.
+*/
+
 template<typename T>
 class order_statistic_tree
 {
@@ -50,46 +68,55 @@ public:
 		root = NULL;
 	}
 
+	//insert a key with a given value
 	void insert(int key, T val)
 	{
 		insert(key, val, root);
 	}
 
+	//remove a key
 	void remove(int key)
 	{
 		remove(key, root);
 	}
 
+	//check if a key exists or not
 	bool find(int key)
 	{
 		return find(key, root);
 	}
 
+	//count how many keys lower than a given value exist in the order statistic tree
 	int count(int key)
 	{
 		return count(key, root);
 	}
 
+	//find the key, which if we would put all the keys in a sorted vector, it is the kth
 	Node* find_kth_element(int k)
 	{
 		return find_kth_element(k, root);
 	}
 
+	//increase all keys, greater or equal with our key, with a value v, which must be >=0
 	void update_greater_k(int k, int val)
 	{
 		update_greater_k(k, val, root);
 	}
 
+	//find the closest key, which is lower or equal than a given value k
 	Node* find_small_close_k(int k)
 	{
 		return find_small_close_k(k, root);
 	}
 
+	//print the keys in ascending order
 	void print()
 	{
 		print(root);
 	}
 
+	//print the size of the tree
 	int size()
 	{
 		if (root)
@@ -118,7 +145,7 @@ private:
 	void rotate_left(Node *&node)
 	{
 		update_lazy(node);
-		
+
 		Node *temp = node->r;
 		node->height_r = node->r->height_l;
 		node->sz_r = node->r->sz_l;
@@ -137,7 +164,7 @@ private:
 	void rotate_right(Node *&node)
 	{
 		update_lazy(node);
-		
+
 		Node *temp = node->l;
 		node->height_l = node->l->height_r;
 		node->sz_l = node->l->sz_r;
