@@ -117,6 +117,8 @@ private:
 
 	void rotate_left(Node *&node)
 	{
+		update_lazy(node);
+		
 		Node *temp = node->r;
 		node->height_r = node->r->height_l;
 		node->sz_r = node->r->sz_l;
@@ -134,6 +136,8 @@ private:
 
 	void rotate_right(Node *&node)
 	{
+		update_lazy(node);
+		
 		Node *temp = node->l;
 		node->height_l = node->l->height_r;
 		node->sz_l = node->l->sz_r;
